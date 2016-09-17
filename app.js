@@ -26,8 +26,12 @@ const BankingApp = React.createClass({
   _addTransaction(transaction) {
     //Destructure the state objects
     const { transactions, debitsTotal, creditsTotal, balance } = this.state;
-    let debitToState = transaction.debit + debitsTotal
+    let debitToState = transaction.debit + debitsTotal,
+        creditsToState = transaction.credit + creditsTotal,
+        balanceToState = creditsToState + debitToState
     this.setState({
+      balance: balanceToState,
+      creditsTotal: creditsToState,
       debitsTotal: debitToState,
       transactions: [...transactions, transaction]
     })
@@ -43,7 +47,9 @@ const BankingApp = React.createClass({
       <div>
         <div className="container">
           <h3 className="debits">
-            <span className="debitsTotal">Your Total Debits: {this.state.debitsTotal}</span>
+            <span id='debitsTotal' className="balances">Total Debits: {this.state.debitsTotal}</span>
+            <span id='creditsTotal' className="balances">Total Credits: {this.state.creditsTotal}</span>
+            <span id='balance' className="balances">Balance: {this.state.balance}</span>
           </h3>
         </div>
         <NewTransactionForm  _addTransaction={this._addTransaction} updateTotal={this.updateTotal} />
@@ -51,6 +57,42 @@ const BankingApp = React.createClass({
     )  
   }
 })
+
+//_____________________________________________________________________________________________________________________________
+
+
+const ProductTable = props => {
+  const { products, removeProduct } = props;
+
+  return (
+    <table className="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {/*Video 22:59*/}
+        {products.map(product => {
+          //could just wrap with parenthesis
+          return (
+            <tr key={product.id}>
+              <td>{product.name}</td>
+              <td>{product.price}</td>
+              <td>
+                <button onClick={removeProduct.bind(null, product.id)} className="btn btn-danger">x</button>
+              </td>
+            </tr>
+          )
+        })}
+      </tbody>
+    </table>
+  )
+}
+
+//==============================================================================================================================
 
 const NewTransactionForm = React.createClass({
 
@@ -84,7 +126,8 @@ const NewTransactionForm = React.createClass({
       description: description.value,
       debit: isDebit,
       credit: isCredit,
-      transactionType: transactionType.value.toLowerCase()
+      transactionType: transactionType.value.toLowerCase(),
+      transactionID: uuid()
     }
     console.log("I am transaction in the child", transaction)
     //Gets passed up to BankingApp to update the state of transactions
