@@ -1,0 +1,20 @@
+.balances {
+  display: block;
+  background-color: #aaa;
+  max-width: 40%;
+  margin-top: 10px;
+  padding: 10px 5px;
+  color: #fff;
+}
+
+#balance {
+  background-color: #34495e;
+}
+
+#debitsTotal {
+  background-color: #e74c3c;
+}
+
+#creditsTotal {
+  background-color: #2ecc71;
+}
