@@ -1,20 +1,32 @@
+
+.form-entry {
+  margin: 18px auto 35px auto;
+
+}
 .balances {
-  /*display: inlinblock;*/
+  display: inline-block;
   background-color: #aaa;
-  max-width: 30%;
-  margin-right: 20px;
   padding: 10px 10px;
   color: #fff;
 }
 
 #balance {
+  display: block;
   background-color: #34495e;
+  width: 300px;
+  margin-bottom: ;
 }
 
 #debitsTotal {
+  display: inline-block;
   background-color: #e74c3c;
+  font-size: 15px;
+  width: 150px;
 }
 
 #creditsTotal {
+  display: inline-block;
   background-color: #2ecc71;
+  font-size: 15px;
+  width: 150px;
 }
